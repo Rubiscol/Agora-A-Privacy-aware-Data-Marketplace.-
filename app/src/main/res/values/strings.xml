@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">uropProject</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="random_button_text">Generate</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">0</string>
+    <string name="hello_second_fragment">Here are random numbers between 0 and %d</string>
+    <string name="toast_button_text">Toast</string>
+    <string name="count_button_text">Count</string>
+    <string name="inputHint">How many random numbers do you want to generate:</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
