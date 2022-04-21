@@ -3,8 +3,23 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/FirstFragment">
+    app:startDestination="@id/MenuFragment">
+    <fragment
+        android:id="@+id/MenuFragment"
+        android:name="com.example.uropproject.MenuFragment"
+        android:label="Menu Fragment"
+        tools:layout="@layout/fragment_menu">
 
+        <action
+            android:id="@+id/action_MenuFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_AESFragment"
+            app:destination="@id/AESFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_OTPFragment"
+            app:destination="@id/OTPFragment" />
+    </fragment>
     <fragment
         android:id="@+id/FirstFragment"
         android:name="com.example.uropproject.FirstFragment"
@@ -14,6 +29,9 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
@@ -27,6 +45,26 @@
         <argument
             android:name="Myarg"
             app:argType="integer[]" />
+    </fragment>
+    <fragment
+        android:id="@+id/AESFragment"
+        android:name="com.example.uropproject.AESFragment"
+        android:label="AES Fragment"
+        tools:layout="@layout/fragment_aes">
+
+        <action
+            android:id="@+id/action_AESFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/OTPFragment"
+        android:name="com.example.uropproject.OTPFragment"
+        android:label="OTP Fragment"
+        tools:layout="@layout/fragment_otp">
+
+        <action
+            android:id="@+id/action_OTPFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
     </fragment>
     
 </navigation>

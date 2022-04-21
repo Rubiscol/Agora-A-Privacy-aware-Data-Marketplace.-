@@ -32,7 +32,7 @@ public class FirstFragment extends Fragment {
         View fragmentFirstLayout=inflater.inflate(R.layout.fragment_first,container,false);
         max_number =fragmentFirstLayout.findViewById(R.id.textview_first);
         numberOfRandom =fragmentFirstLayout.findViewById(R.id.permutation_input);
-        randomButton=fragmentFirstLayout.findViewById(R.id.random_button);
+        randomButton=fragmentFirstLayout.findViewById(R.id.prime_random_button);
         confirmButton2=fragmentFirstLayout.findViewById(R.id.confirm_button2);
         input_hint=fragmentFirstLayout.findViewById(R.id.inputHint2_text);
         input_hint.setVisibility(View.INVISIBLE);
@@ -48,7 +48,7 @@ public class FirstFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.random_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.prime_random_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (repeat_times >=0) {
@@ -80,13 +80,14 @@ public class FirstFragment extends Fragment {
 
             }
         });
-//        view.findViewById(R.id.toast_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Toast myToast = Toast.makeText(getActivity(), "Finish generating "+ repeat_times +" random numbers!", Toast.LENGTH_SHORT);
-//                myToast.show();
-//            }
-//        });
+        view.findViewById(R.id.back_button_aes).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(FirstFragment.this)
+                        .navigate(R.id.action_FirstFragment_to_MenuFragment);
+
+            }
+        });
 
     }
 
