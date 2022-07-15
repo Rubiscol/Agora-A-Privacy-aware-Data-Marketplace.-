@@ -19,6 +19,14 @@
         <action
             android:id="@+id/action_MenuFragment_to_OTPFragment"
             app:destination="@id/OTPFragment" />
+
+        <action
+            android:id="@+id/action_MenuFragment_to_BrokerFragment"
+            app:destination="@id/BrokerFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_ConsumerFragment"
+            app:destination="@id/ConsumerFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/FirstFragment"
@@ -66,5 +74,26 @@
             android:id="@+id/action_OTPFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
     </fragment>
-    
+    <fragment
+        android:id="@+id/BrokerFragment"
+        android:name="com.example.uropproject.BrokerFragment"
+        android:label="Broker Fragment"
+        tools:layout="@layout/fragment_broker">
+
+        <action
+            android:id="@+id/action_BrokerFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/ConsumerFragment"
+        android:name="com.example.uropproject.ConsumerFragment"
+        android:label="Consumer Fragment"
+        tools:layout="@layout/fragment_consumer">
+
+        <action
+            android:id="@+id/action_ConsumerFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
+    </fragment>
+
+
 </navigation>

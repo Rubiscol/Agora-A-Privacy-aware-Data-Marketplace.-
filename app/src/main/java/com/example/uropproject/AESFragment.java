@@ -92,7 +92,7 @@ public class AESFragment extends Fragment {
                 String secretMessage=input.getText().toString();
                 String ciphertext="";
                 try {
-                     ciphertext=EncryptWithAES(secretMessage);
+                    ciphertext=EncryptWithAES(secretMessage);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

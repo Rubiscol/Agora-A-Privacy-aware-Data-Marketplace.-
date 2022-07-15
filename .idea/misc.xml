@@ -5,11 +5,17 @@
       <map>
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.255" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/drawable/ic_launcher_background.xml" value="0.255" />
-        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/activity_main.xml" value="0.1897644927536232" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/activity_main.xml" value="0.2857142857142857" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/content_main.xml" value="0.42857142857142855" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_aes.xml" value="0.4421875" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_agroa.xml" value="0.421875" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_blank.xml" value="0.4421875" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_broker.xml" value="0.4421875" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_consumer.xml" value="0.25" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_customer.xml" value="0.4421875" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_ec.xml" value="0.23233695652173914" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_first.xml" value="0.3333333333333333" />
+        <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_main_menu.xml" value="0.278125" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_menu.xml" value="0.4421875" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_otp.xml" value="0.31614583333333335" />
         <entry key="..\:/Users/GU YI/AndroidStudioProjects/uropProject/app/src/main/res/layout/fragment_second.xml" value="0.22" />

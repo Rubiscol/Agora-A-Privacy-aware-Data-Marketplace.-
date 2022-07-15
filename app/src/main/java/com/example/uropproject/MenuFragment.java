@@ -72,29 +72,45 @@ public class MenuFragment extends Fragment {
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        view.findViewById(R.id.RNG_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.Broker_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(MenuFragment.this)
-                        .navigate(R.id.action_MenuFragment_to_FirstFragment);
+                        .navigate(R.id.action_MenuFragment_to_BrokerFragment);
 
             }
         });
-        view.findViewById(R.id.AES_button).setOnClickListener(new View.OnClickListener() {
+        view.findViewById(R.id.Consumer_button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 NavHostFragment.findNavController(MenuFragment.this)
-                        .navigate(R.id.action_MenuFragment_to_AESFragment);
+                        .navigate(R.id.action_MenuFragment_to_ConsumerFragment);
 
             }
         });
-        view.findViewById(R.id.OTP_button).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                NavHostFragment.findNavController(MenuFragment.this)
-                        .navigate(R.id.action_MenuFragment_to_OTPFragment);
-
-            }
-        });
+//        view.findViewById(R.id.AES_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(MenuFragment.this)
+//                        .navigate(R.id.action_MenuFragment_to_AESFragment);
+//
+//            }
+//        });
+//        view.findViewById(R.id.OTP_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(MenuFragment.this)
+//                        .navigate(R.id.action_MenuFragment_to_OTPFragment);
+//
+//            }
+//        });
+//        view.findViewById(R.id.AGORA_button).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                NavHostFragment.findNavController(MenuFragment.this)
+//                        .navigate(R.id.action_MenuFragment_to_AgroaFragment);
+//
+//            }
+//        });
     }
 }
