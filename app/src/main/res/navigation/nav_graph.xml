@@ -9,71 +9,41 @@
         android:name="com.example.uropproject.MenuFragment"
         android:label="Menu Fragment"
         tools:layout="@layout/fragment_menu">
-
-        <action
-            android:id="@+id/action_MenuFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <action
-            android:id="@+id/action_MenuFragment_to_AESFragment"
-            app:destination="@id/AESFragment" />
-        <action
-            android:id="@+id/action_MenuFragment_to_OTPFragment"
-            app:destination="@id/OTPFragment" />
-
         <action
             android:id="@+id/action_MenuFragment_to_BrokerFragment"
             app:destination="@id/BrokerFragment" />
         <action
             android:id="@+id/action_MenuFragment_to_ConsumerFragment"
             app:destination="@id/ConsumerFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_GeneratorFragment"
+            app:destination="@id/GeneratorFragment" />
+        <action
+            android:id="@+id/action_MenuFragment_to_SetupFragment"
+            app:destination="@id/SetupFragment" />
 
     </fragment>
     <fragment
-        android:id="@+id/FirstFragment"
-        android:name="com.example.uropproject.FirstFragment"
-        android:label="@string/first_fragment_label"
-        tools:layout="@layout/fragment_first">
+        android:id="@+id/GeneratorFragment"
+        android:name="com.example.uropproject.GeneratorFragment"
+        android:label="Generator Fragment"
+        tools:layout="@layout/fragment_generator">
 
         <action
-            android:id="@+id/action_FirstFragment_to_SecondFragment"
-            app:destination="@id/SecondFragment" />
-        <action
-            android:id="@+id/action_FirstFragment_to_MenuFragment"
+            android:id="@+id/action_GeneratorFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
     </fragment>
     <fragment
-        android:id="@+id/SecondFragment"
-        android:name="com.example.uropproject.SecondFragment"
-        android:label="@string/second_fragment_label"
-        tools:layout="@layout/fragment_second">
+        android:id="@+id/SetupFragment"
+        android:name="com.example.uropproject.SetupFragment"
+        android:label="Setup Fragment"
+        tools:layout="@layout/fragment_setup">
 
         <action
-            android:id="@+id/action_SecondFragment_to_FirstFragment"
-            app:destination="@id/FirstFragment" />
-        <argument
-            android:name="Myarg"
-            app:argType="integer[]" />
-    </fragment>
-    <fragment
-        android:id="@+id/AESFragment"
-        android:name="com.example.uropproject.AESFragment"
-        android:label="AES Fragment"
-        tools:layout="@layout/fragment_aes">
-
-        <action
-            android:id="@+id/action_AESFragment_to_MenuFragment"
+            android:id="@+id/action_SetupFragment_to_MenuFragment"
             app:destination="@id/MenuFragment" />
     </fragment>
-    <fragment
-        android:id="@+id/OTPFragment"
-        android:name="com.example.uropproject.OTPFragment"
-        android:label="OTP Fragment"
-        tools:layout="@layout/fragment_otp">
 
-        <action
-            android:id="@+id/action_OTPFragment_to_MenuFragment"
-            app:destination="@id/MenuFragment" />
-    </fragment>
     <fragment
         android:id="@+id/BrokerFragment"
         android:name="com.example.uropproject.BrokerFragment"

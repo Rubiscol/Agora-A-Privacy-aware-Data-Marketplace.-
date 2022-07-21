@@ -7,13 +7,13 @@ import javafx.util.Pair;
 
 public class Encryption {
 	private BigInteger originalmessage;
-	private BigInteger label;
+	private Integer label;
 	private Pair<ECPoint, ECPoint> ut;
 	private Pair<BigInteger, BigInteger> encryptionkey;
 	private ECPoint G;
 	private ECCurve curve;
 
-	public Encryption(BigInteger x, BigInteger label, BigInteger s_1, BigInteger s_2,ECPoint G,ECCurve curve) {
+	public Encryption(BigInteger x, Integer label, BigInteger s_1, BigInteger s_2,ECPoint G,ECCurve curve) {
 		originalmessage = x;
 		this.label = label;
 		encryptionkey = new Pair<BigInteger, BigInteger>(s_1, s_2);

@@ -88,29 +88,22 @@ public class MenuFragment extends Fragment {
 
             }
         });
-//        view.findViewById(R.id.AES_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(MenuFragment.this)
-//                        .navigate(R.id.action_MenuFragment_to_AESFragment);
-//
-//            }
-//        });
-//        view.findViewById(R.id.OTP_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(MenuFragment.this)
-//                        .navigate(R.id.action_MenuFragment_to_OTPFragment);
-//
-//            }
-//        });
-//        view.findViewById(R.id.AGORA_button).setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                NavHostFragment.findNavController(MenuFragment.this)
-//                        .navigate(R.id.action_MenuFragment_to_AgroaFragment);
-//
-//            }
-//        });
+        view.findViewById(R.id.Setup_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MenuFragment.this)
+                        .navigate(R.id.action_MenuFragment_to_SetupFragment);
+
+            }
+        });
+        view.findViewById(R.id.Generator_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MenuFragment.this)
+                        .navigate(R.id.action_MenuFragment_to_GeneratorFragment);
+
+            }
+        });
+
     }
 }

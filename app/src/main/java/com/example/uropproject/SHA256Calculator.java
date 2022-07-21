@@ -18,7 +18,4 @@ public class SHA256Calculator {
         BigInteger bigInteger = BigInteger.valueOf(n);
         return doSHA256(bigInteger);
     }
-
-
-
 }

@@ -19,7 +19,9 @@ import org.javatuples.Quartet;
 import org.javatuples.Triplet;
 
 import java.math.BigInteger;
+import java.nio.charset.StandardCharsets;
 import java.security.InvalidAlgorithmParameterException;
+import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
@@ -94,7 +96,7 @@ public class BrokerFragment extends Fragment {
         // Inflate the layout for this fragment
         View fragmentBrokerLayout =inflater.inflate(R.layout.fragment_broker, container, false);
         broker_t=fragmentBrokerLayout.findViewById(R.id.broker_t);
-        broker_t.setText("The round t you are given is: "+testUROP.label);
+        broker_t.setText("The round t you are given is: "+ConsumerFragment.currentlabel);
         a_textView=fragmentBrokerLayout.findViewById(R.id.a_textView);
         broker_generate_button=fragmentBrokerLayout.findViewById(R.id.broker_generate_button);
         broker_textView=fragmentBrokerLayout.findViewById(R.id.broker_textView);
@@ -121,8 +123,8 @@ public class BrokerFragment extends Fragment {
                  ga=g.multiply(a).normalize();
                  gafsk1=ga.multiply(testUROP.fsk.getKey()).normalize();
                  gafsk2=ga.multiply(testUROP.fsk.getValue()).normalize();
-                 ECPoint ut1=testUROP.utEcPoint.getKey().normalize();
-                 ECPoint ut2=testUROP.utEcPoint.getValue().normalize();
+                 ECPoint ut1=testUROP.utEcPoint.get(ConsumerFragment.currentlabel).getKey().normalize();
+                 ECPoint ut2=testUROP.utEcPoint.get(ConsumerFragment.currentlabel).getValue().normalize();
                  ut1afsk1=ut1.multiply(a).multiply(testUROP.fsk.getKey()).normalize();
                  ut2afsk2=ut2.multiply(a).multiply(testUROP.fsk.getValue()).normalize();
                  broker_textView.setText("Send to consumer\n"+"g*a= "+ga.getAffineXCoord()+"\n"
@@ -155,8 +157,8 @@ public class BrokerFragment extends Fragment {
         ArrayList<Triplet<ECPoint,ECPoint,BigInteger>> tests=new ArrayList<Triplet<ECPoint,ECPoint,BigInteger>>();
         Triplet<ECPoint,ECPoint,BigInteger> test0=singletest(g,ga, g.multiply(testUROP.fsk.getKey()).normalize(),gafsk1,testUROP.fsk.getKey());
         Triplet<ECPoint,ECPoint,BigInteger> test1=singletest(g,ga,g.multiply(testUROP.fsk.getValue()).normalize(),gafsk2,testUROP.fsk.getValue());
-        Triplet<ECPoint,ECPoint,BigInteger> test2=singletest(g,testUROP.utEcPoint.getKey(),ga.multiply(testUROP.fsk.getKey()).normalize(),ut1afsk1,testUROP.fsk.getKey().multiply(a));
-        Triplet<ECPoint,ECPoint,BigInteger> test3=singletest(g,testUROP.utEcPoint.getValue(),ga.multiply(testUROP.fsk.getValue()).normalize(),ut2afsk2,testUROP.fsk.getValue().multiply(a));
+        Triplet<ECPoint,ECPoint,BigInteger> test2=singletest(g,testUROP.utEcPoint.get(ConsumerFragment.currentlabel).getKey(),ga.multiply(testUROP.fsk.getKey()).normalize(),ut1afsk1,testUROP.fsk.getKey().multiply(a));
+        Triplet<ECPoint,ECPoint,BigInteger> test3=singletest(g,testUROP.utEcPoint.get(ConsumerFragment.currentlabel).getValue(),ga.multiply(testUROP.fsk.getValue()).normalize(),ut2afsk2,testUROP.fsk.getValue().multiply(a));
         tests.add(test0);
         tests.add(test1);
         tests.add(test2);
@@ -181,6 +183,15 @@ public class BrokerFragment extends Fragment {
         Triplet<ECPoint, ECPoint, BigInteger> H = new Triplet<>(gu, hu, z);
         return H;
     }
+    public static BigInteger getXt(Integer t){
+        BigInteger x=BigInteger.ZERO;
+        for(int i=0;i<testUROP.w.size();i++) {
+            x=x.add(testUROP.w.get(i).multiply(testUROP.plaintexts.get(t).get(i)));
+        }
+        return x;
+    }
+
+
 
 
 }

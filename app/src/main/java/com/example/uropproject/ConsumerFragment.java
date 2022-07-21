@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,7 +34,7 @@ public class ConsumerFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-    private TextView t_textView;
+    private EditText t_textView;
     private Button t_confirm_button;
     private Button refresh_button;
     private TextView consumer_textView;
@@ -44,6 +45,7 @@ public class ConsumerFragment extends Fragment {
     private Button verify_button;
     private String message;
     private static ECPoint g;
+    public static Integer currentlabel;
     public ConsumerFragment() {
         // Required empty public constructor
     }
@@ -85,12 +87,7 @@ public class ConsumerFragment extends Fragment {
         consumer_textView=view.findViewById(R.id.consumer_textView);
         consumer_back_button=view.findViewById(R.id.consumer_back_button);
         verify_button=view.findViewById(R.id.verify_button);
-        if(testUROP.label!=null){
-            t_textView.setText("t is " +testUROP.label.toString());
-        }
-        else{
-            t_textView.setText("Please enter the t");
-        }
+
         return view;
     }
 
@@ -101,19 +98,7 @@ public class ConsumerFragment extends Fragment {
             @Override
 
             public void onClick(View view) {
-                testUROP.label=testUROP.nextRandomBigInteger(testUROP.securityParameter);
-                t_textView.setText( "t is " +testUROP.label.toString());
-
-                try {
-                    testUROP.Setup();
-                    testUROP.testDKeyGen();
-                    testUROP.testEncrypt();
-
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (InvalidAlgorithmParameterException e) {
-                    e.printStackTrace();
-                }
+                currentlabel=Integer.valueOf(String.valueOf(t_textView.getText()));
 
             }
 
@@ -145,14 +130,32 @@ public class ConsumerFragment extends Fragment {
             public void onClick(View view) {
                 try {
                     if(verify()){
-                        message=message+"The test passes"+"\n";
-                        message=message+"Ready to take further steps"+"\n";
+                        message=message+"--------------"+"\n";
+                        message=message+"The ZNP test passes"+"\n";
+                        message=message+"--------------"+"\n";
+                        message=message+"The X("+currentlabel+")*g result's information are listed below"+"\n";
+                        ECPoint cipherPoint= testUROP.getCombinedCiphertext(currentlabel);
+                        ECPoint result= cipherPoint.subtract(testUROP.utEcPoint.get(currentlabel).getKey().multiply(testUROP.fsk.getKey()).normalize()).normalize();
+                        result= result.subtract(testUROP.utEcPoint.get(currentlabel).getValue().multiply(testUROP.fsk.getValue()).normalize()).normalize();
+                        message=message+"The x coordinate of the result is \n"+result.getAffineXCoord()+"\n";
+                        message=message+"The y coordinate of the result is \n"+result.getAffineYCoord()+"\n";
+                        message=message+"--------------"+"\n";
+                        message=message+"The X("+currentlabel+") from the broker is \n"+BrokerFragment.getXt(currentlabel)+"\n";
+                        message=message+"--------------"+"\n";
+                        ECPoint gx=g.multiply(BrokerFragment.getXt(currentlabel)).normalize();
+
+                        message=message+"Whether the given X(t) satisfy X(t)*g==result: \n";
+                        message=message+"The x coordinate of the X(t)*g is \n"+gx.getAffineXCoord()+"\n";
+                        message=message+"The y coordinate of the X(t)*g is \n"+gx.getAffineYCoord()+"\n";
+                        message=message+gx.equals(result)+"\n";
                         consumer_textView.setText(message);
                     }
                     else{
                         message=message+"The test fails to pass"+"\n";
                         consumer_textView.setText(message);
                     }
+
+
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }
@@ -185,8 +188,8 @@ public class ConsumerFragment extends Fragment {
         Triplet<ECPoint,ECPoint,BigInteger> H3=BrokerFragment.proverTest().get(3);
         Boolean boolean0=verifierTest(g,ga, g.multiply(testUROP.fsk.getKey()),gafsk1,H0);
         Boolean boolean1=verifierTest(g,ga,g.multiply(testUROP.fsk.getValue()),gafsk2,H1);
-        Boolean boolean2=verifierTest(g,testUROP.utEcPoint.getKey(),ga.multiply(testUROP.fsk.getKey()),ut1afsk1,H2);
-        Boolean boolean3=verifierTest(g,testUROP.utEcPoint.getValue(),ga.multiply(testUROP.fsk.getValue()),ut2afsk2,H3);
+        Boolean boolean2=verifierTest(g,testUROP.utEcPoint.get(currentlabel).getKey(),ga.multiply(testUROP.fsk.getKey()),ut1afsk1,H2);
+        Boolean boolean3=verifierTest(g,testUROP.utEcPoint.get(currentlabel).getValue(),ga.multiply(testUROP.fsk.getValue()),ut2afsk2,H3);
 
         return boolean0&&boolean1&&boolean2&&boolean3;
     }

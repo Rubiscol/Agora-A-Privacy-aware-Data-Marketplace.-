@@ -15,19 +15,16 @@ public class DKeyGen {
 	private BigInteger p;
 	BigInteger ws_1=BigInteger.ZERO;
 	BigInteger ws_2=BigInteger.ZERO;
-	public DKeyGen(ArrayList<Pair<BigInteger, BigInteger>> msk,ArrayList<BigInteger> w,BigInteger p) {
+	public DKeyGen(ArrayList<Pair<BigInteger, BigInteger>> msk,ArrayList<BigInteger> w) {
 		this.msk=msk;
 		this.w=w;
-		this.p=p;
-
-		// TODO Auto-generated constructor stub
 	}
 	public Pair<BigInteger, BigInteger> getfsk(){
 		ws_1=BigInteger.ZERO;
 		ws_2=BigInteger.ZERO;
 		for(int i=0;i<w.size();i++) {
-			ws_1=(ws_1.add(w.get(i).multiply(msk.get(i).getKey()))).mod(p);
-			ws_2=(ws_2.add(w.get(i).multiply(msk.get(i).getValue()))).mod(p);
+			ws_1=(ws_1.add(w.get(i).multiply(msk.get(i).getKey())));
+			ws_2=(ws_2.add(w.get(i).multiply(msk.get(i).getValue())));
 		}
 		System.out.println("fsk is");
 		System.out.println(ws_1);
