@@ -134,6 +134,7 @@ public class BrokerFragment extends Fragment {
         view.findViewById(R.id.broker_getcipher_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try {
+                    Broker.prodCiphertext();
                     String information=Broker.getCiphertext();
                     broker_textView.setText(information);
                 } catch (Exception e) {

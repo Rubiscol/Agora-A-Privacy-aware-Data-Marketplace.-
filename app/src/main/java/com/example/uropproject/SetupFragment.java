@@ -90,12 +90,9 @@ public class SetupFragment extends Fragment {
         view.findViewById(R.id.setup_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try {
-                    System.out.println("setText 0");
-                    System.out.println("setText 1");
-                    Setup.run();
-                    System.out.println("setText 2");
+                    Setup.FE_Setup();
+                    Setup.SetupWithContract();
                     setup_info_textView.append("Finish setup");
-                    System.out.println("setText 3");
                     Setup.testDKeyGen();
 
                 } catch (Exception e) {

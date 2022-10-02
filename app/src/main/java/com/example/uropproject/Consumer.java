@@ -52,21 +52,12 @@ public class Consumer {
         return info;
     }
     public static boolean verifyGA() throws ExecutionException, InterruptedException {
-        Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/e732435ba40d4d2c948ab4a9d3eace97"));
-        Web3ClientVersion web3ClientVersion = (Web3ClientVersion)web3j.web3ClientVersion().sendAsync().get();
-        Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
-        new RawTransactionManager(web3j, credentials, 4L);
-        String contractAddress =Main.contractAddress;
-        Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
-
+        Agreegator contract =Main.contract;
         List<BigInteger> x= Arrays.asList(new BigInteger[]{ga.getAffineXCoord().toBigInteger(),ga.getAffineYCoord().toBigInteger()});
         a=getAfrombroker();
-
         String message="The x coordinate of the g*a is \n"+g.multiply(a).normalize().getAffineXCoord()+"\n";
         message=message+"The y coordinate of the g*a is \n"+g.multiply(a).normalize().getAffineYCoord()+"\n";
         message=message+"=====Please wait for the verification of a =====\n";
-
-
         checkga=contract.verifyGA(x,BigInteger.ONE).sendAsync().get();
         return checkga.equals(BigInteger.ONE);
 
@@ -111,9 +102,8 @@ public class Consumer {
         ECPoint ugcgy=cgy.add(ug).normalize();
         ECPoint zh=h.multiply(z).normalize();
         ECPoint chy=yh.multiply(c).normalize();
-
         ECPoint uhchy=chy.add(uh).normalize();
-        System.out.println(zg.equals(ugcgy));
+//        System.out.println(zg.equals(ugcgy));
         if(zg.equals(ugcgy)&& zh.equals(uhchy)) {
             return true;
         }

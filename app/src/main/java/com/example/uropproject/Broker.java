@@ -43,19 +43,14 @@ public class Broker {
                 + "ut(2)*a*fsk(2)= " + ut2afsk2.getAffineXCoord() + "\n";
         return information;
     }
-    public static String getCiphertext() throws NoSuchAlgorithmException, ExecutionException, InterruptedException {
-        Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/e732435ba40d4d2c948ab4a9d3eace97"));
-        Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
-        new RawTransactionManager(web3j, credentials, 4L);
-        String contractAddress =Main.contractAddress;
-        Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
-        System.out.println("Ready to goToCipherSumation");
+    public static void prodCiphertext() throws NoSuchAlgorithmException, ExecutionException, InterruptedException {
+        Agreegator contract = Main.contract;
         contract.goToCipherSumation().sendAsync().get();
-        System.out.println("Finish goToCipherSumation");
         contract.prodCipher(BigInteger.ONE).sendAsync().get();
-        System.out.println("Ready to prodCipher");
+    }
+    public static String getCiphertext() throws NoSuchAlgorithmException, ExecutionException, InterruptedException {
+        Agreegator contract = Main.contract;
         Object[] point=contract.getfCiphertext().sendAsync().get().toArray();
-        System.out.println("Finish prodCipher");
         ECCurve curve=g.getCurve();
         BigInteger x= (BigInteger) point[0];
         BigInteger y=(BigInteger) point[1];
@@ -91,16 +86,11 @@ public class Broker {
         return tests;
     }
     public static boolean sendGA(){
-        Web3j web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/e732435ba40d4d2c948ab4a9d3eace97"));
+
         try {
-            Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
-            new RawTransactionManager(web3j, credentials, 4L);
-            String contractAddress =Main.contractAddress;
-            Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+            Agreegator contract = Main.contract;
             contract.uploada(a,BigInteger.valueOf(1)).sendAsync().get();
             return true;
-
-
         } catch (Exception e) {
             e.printStackTrace();
             return false;

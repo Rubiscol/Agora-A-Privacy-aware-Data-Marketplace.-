@@ -25,7 +25,6 @@ public class Encryption {
 	}
 	public Pair<ECPoint, ECPoint> getut() throws NoSuchAlgorithmException {
 
-//		BigInteger h1=Main.nextRandomBigInteger(Main.securityParameter);
 		BigInteger h1=SHA256Calculator.doSHA256(label);
 		BigInteger h2=SHA256Calculator.doSHA256(h1);
 		ut=new Pair<ECPoint, ECPoint>(G.multiply(h1).normalize(), G.multiply(h2).normalize());

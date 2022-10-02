@@ -28,9 +28,9 @@ public class DKeyGen {
 			ws_1=(ws_1.add(w.get(i).multiply(msk.get(i).getValue0())));
 			ws_2=(ws_2.add(w.get(i).multiply(msk.get(i).getValue1())));
 		}
-		System.out.println("fsk is");
-		System.out.println(ws_1);
-		System.out.println(ws_2);
+//		System.out.println("fsk is");
+//		System.out.println(ws_1);
+//		System.out.println(ws_2);
 		return new Pair<BigInteger, BigInteger>(ws_1, ws_2);
 
 	}

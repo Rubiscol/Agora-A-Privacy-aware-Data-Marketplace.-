@@ -674,54 +674,42 @@ public class Setup {
 
 
     };
-    public static void run() {
+    public static void FE_Setup() {
 
         Main.msk=new ArrayList<>();
         w=new ArrayList<>();
         ciphertexts=new HashMap<>();
         utEcPoint=new HashMap<>();
-
         for(int i=0;i<Main.n;i++) {
             BigInteger s_1=Main.nextRandomBigInteger(Main.securityParameter);
             BigInteger s_2=Main.nextRandomBigInteger(Main.securityParameter);
             Pair<BigInteger, BigInteger> s=new Pair<>(s_1,s_2);
             Main.msk.add(s);
             w.add(Main.nextRandomBigInteger(Main.securityParameter));
-
         }
         ECNamedCurveParameterSpec spec = ECNamedCurveTable.getParameterSpec("secp256k1");
-        try {
-            SetupWithContract();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        System.out.println("Finish Setup");
+
 
     }
     public static void SetupWithContract() throws Exception {
-
-        web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/e732435ba40d4d2c948ab4a9d3eace97"));
-        Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
-        new RawTransactionManager(web3j, credentials, 4L);
-        Agreegator contract = Agreegator.load(Main.contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+//        web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/e732435ba40d4d2c948ab4a9d3eace97"));
+//        Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
+//        new RawTransactionManager(web3j, credentials, 4L);
+//        Agreegator contract = Agreegator.load(Main.contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+        Agreegator contract=Main.contract;
         contract.resetToSetup().sendAsync().get();
-        System.out.println("resetToSetup");
+
         for(int i=0;i<Main.n;i++){
             contract.setEligible(accountAddress[i],BigInteger.ONE).sendAsync().get();
         }
+        //Initiate weight
         contract.initweights(BigInteger.valueOf(w.size()),BigInteger.ZERO,BigInteger.ONE).sendAsync().get();
-        System.out.println("initweights");
         contract.goToCipherCollection().sendAsync().get();
-        System.out.println("goToCipherCollection()");
         for(int i=0;i<w.size();i++){
             contract.changeSpecigicWeight(BigInteger.valueOf(i),w.get(i),BigInteger.ONE).sendAsync().get();
         }
-        System.out.println("Setweight");
         Main.initiateLabel();
-        System.out.println("0");
         Main.resetLabelDevicecounter();
-        System.out.println("1");
-
     }
 
     public static void testDKeyGen() {

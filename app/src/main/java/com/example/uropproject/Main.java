@@ -4,6 +4,10 @@ import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.math.ec.ECPoint;
 import org.javatuples.Pair;
 import org.javatuples.Triplet;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
 
@@ -28,7 +32,10 @@ public class Main {
     private static void updateLabel(){
         label=label+1;
     }
-    public static String contractAddress ="0x6A7EBac0771D919Cfe2e93c60AE64e81B66d660f";
+    public static String contractAddress ="0x9F1bdE3436586CeDDe4D1afEdf50982e8EA4B1B6";
+    public static Agreegator contract =
+            Agreegator.load(contractAddress, Web3j.build(new HttpService("https://goerli.infura.io/v3/ae2a80a1510d49bf92153f328ab6fa0a")),
+            Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f"),  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
     public static void updateDevicecounter(){
         if(devicecounter>=n){
             resetLabelDevicecounter();
@@ -55,19 +62,11 @@ public class Main {
     }
 
     public static Pair<ECPoint, ECPoint> getut(Integer t) throws NoSuchAlgorithmException {
-        if(t==null){
-            System.out.println("Label null");
-        }
+
         BigInteger h1=SHA256Calculator.doSHA256(t);
         BigInteger h2=SHA256Calculator.doSHA256(h1);
         ECPoint x =g.multiply(h1).normalize();
-        if(x==null){
-            System.out.println("ECPoint x null");
-        }
         ECPoint y =g.multiply(h2).normalize();
-        if(y==null){
-            System.out.println("ECPoint y null");
-        }
         Pair<ECPoint, ECPoint> ut=new Pair<ECPoint, ECPoint>(x,y);
         return ut;
     }
