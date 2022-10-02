@@ -14,19 +14,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import org.bouncycastle.math.ec.ECPoint;
-import org.javatuples.Triplet;
-import org.web3j.crypto.Credentials;
-import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.methods.response.Web3ClientVersion;
-import org.web3j.protocol.http.HttpService;
-import org.web3j.tx.RawTransactionManager;
-import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,11 +97,9 @@ public class ConsumerFragment extends Fragment {
 
         view.findViewById(R.id.t_confirm_button).setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
                 Main.currentlabel=Integer.valueOf(String.valueOf(t_textView.getText()));
             }
-
         });
         view.findViewById(R.id.verify_button2).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +113,6 @@ public class ConsumerFragment extends Fragment {
                     else{
                         consumer_textView.setText("The verification of g*a fails\n");
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -145,7 +132,7 @@ public class ConsumerFragment extends Fragment {
 
             public void onClick(View view) {
                 try {
-                    if( Consumer.verify()){
+                    if( Consumer.verifyZNP()){
                         message=message+"--------------"+"\n";
                         message=message+"The ZNP test passes"+"\n";
                         message=message+"--------------"+"\n";
@@ -155,8 +142,6 @@ public class ConsumerFragment extends Fragment {
                         message=message+"The test fails to pass"+"\n";
                         consumer_textView.setText(message);
                     }
-
-
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
                 }

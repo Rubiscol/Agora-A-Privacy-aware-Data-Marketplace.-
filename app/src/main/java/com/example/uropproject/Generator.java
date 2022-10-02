@@ -28,7 +28,7 @@ public class Generator
         new RawTransactionManager(web3j, credentials, 4L);
         String contractAddress =Main.contractAddress;
         System.out.println("Generator :"+Main.label+" "+Main.devicecounter);
-        ExperimentAgreegator contract = ExperimentAgreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+        Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
         BigInteger originaltext=Main.nextRandomBigInteger(Main.securityParameter);
         GeneratorFragment.plaintexts.add(originaltext);
         Encryption tEncryption=

@@ -21,7 +21,20 @@
         <action
             android:id="@+id/action_MenuFragment_to_SetupFragment"
             app:destination="@id/SetupFragment" />
+        <action
+        android:id="@+id/action_MenuFragment_to_ExperimentFragment"
+        app:destination="@id/ExperimentFragment" />
 
+    </fragment>
+    <fragment
+        android:id="@+id/ExperimentFragment"
+        android:name="com.example.uropproject.ExperimentFragment"
+        android:label="Experiment Fragment"
+        tools:layout="@layout/fragment_experiment">
+
+        <action
+            android:id="@+id/action_ExperimentFragment_to_MenuFragment"
+            app:destination="@id/MenuFragment" />
     </fragment>
     <fragment
         android:id="@+id/GeneratorFragment"

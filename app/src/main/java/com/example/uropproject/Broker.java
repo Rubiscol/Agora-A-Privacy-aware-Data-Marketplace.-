@@ -27,7 +27,7 @@ public class Broker {
         a=Main.nextRandomBigInteger(Main.securityParameter);
         return a;
     }
-    public static String sendWithZNP(BigInteger a) throws NoSuchAlgorithmException {
+    public static String sendWithZNP() throws NoSuchAlgorithmException {
         g = Main.g;
         ga = g.multiply(a).normalize();
         gafsk1 = ga.multiply(Main.fsk.getValue0()).normalize();
@@ -48,7 +48,7 @@ public class Broker {
         Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
         new RawTransactionManager(web3j, credentials, 4L);
         String contractAddress =Main.contractAddress;
-        ExperimentAgreegator contract = ExperimentAgreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+        Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
         System.out.println("Ready to goToCipherSumation");
         contract.goToCipherSumation().sendAsync().get();
         System.out.println("Finish goToCipherSumation");
@@ -96,7 +96,7 @@ public class Broker {
             Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
             new RawTransactionManager(web3j, credentials, 4L);
             String contractAddress =Main.contractAddress;
-            ExperimentAgreegator contract = ExperimentAgreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+            Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
             contract.uploada(a,BigInteger.valueOf(1)).sendAsync().get();
             return true;
 
@@ -128,8 +128,8 @@ public class Broker {
     }
     public static BigInteger getXt(Integer t){
         BigInteger x=BigInteger.ZERO;
-        for(int i = 0; i< SetupActivity.w.size(); i++) {
-            x=x.add(SetupActivity.w.get(i).multiply(GeneratorFragment.plaintexts.get(i)));
+        for(int i = 0; i< Setup.w.size(); i++) {
+            x=x.add(Setup.w.get(i).multiply(GeneratorFragment.plaintexts.get(i)));
         }
         return x;
     }

@@ -133,22 +133,19 @@ public class BrokerFragment extends Fragment {
         });
         view.findViewById(R.id.broker_getcipher_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-
                 try {
                     String information=Broker.getCiphertext();
                     broker_textView.setText(information);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
-
             }
         });
         view.findViewById(R.id.broker_send_button).setOnClickListener(new View.OnClickListener() {
 
             public void onClick(View view) {
                 try {
-                    String information=Broker.sendWithZNP(a);
+                    String information=Broker.sendWithZNP();
                     broker_textView.setText(information);
                 }catch (Exception e) {
                     e.printStackTrace();

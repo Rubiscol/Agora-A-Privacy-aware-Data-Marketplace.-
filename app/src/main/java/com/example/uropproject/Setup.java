@@ -1,34 +1,26 @@
 package com.example.uropproject;
 
 import android.app.Application;
-import android.content.Context;
-import android.util.Log;
 
 import org.bouncycastle.jce.ECNamedCurveTable;
 import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
 import org.bouncycastle.math.ec.ECPoint;
 import org.javatuples.Pair;
-import org.javatuples.Triplet;
 
 import org.slf4j.LoggerFactory;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
-import org.web3j.protocol.core.methods.response.Web3ClientVersion;
 import org.web3j.protocol.http.HttpService;
 import org.web3j.tx.RawTransactionManager;
 import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
-import java.util.Random;
+
 import org.slf4j.Logger;
 
-public class SetupActivity {
+public class Setup {
     public final static BigInteger TWO = BigInteger.valueOf(2);
     public final static BigInteger THREE = BigInteger.valueOf(3);
     public static ArrayList<BigInteger> w;
@@ -711,7 +703,7 @@ public class SetupActivity {
         web3j = Web3j.build(new HttpService("https://rinkeby.infura.io/v3/e732435ba40d4d2c948ab4a9d3eace97"));
         Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
         new RawTransactionManager(web3j, credentials, 4L);
-        ExperimentAgreegator contract = ExperimentAgreegator.load(Main.contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+        Agreegator contract = Agreegator.load(Main.contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
         contract.resetToSetup().sendAsync().get();
         System.out.println("resetToSetup");
         for(int i=0;i<Main.n;i++){
