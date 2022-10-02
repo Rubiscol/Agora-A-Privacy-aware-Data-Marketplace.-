@@ -55,9 +55,20 @@ public class Main {
     }
 
     public static Pair<ECPoint, ECPoint> getut(Integer t) throws NoSuchAlgorithmException {
+        if(t==null){
+            System.out.println("Label null");
+        }
         BigInteger h1=SHA256Calculator.doSHA256(t);
         BigInteger h2=SHA256Calculator.doSHA256(h1);
-        Pair<ECPoint, ECPoint> ut=new Pair<ECPoint, ECPoint>(g.multiply(h1).normalize(), g.multiply(h2).normalize());
+        ECPoint x =g.multiply(h1).normalize();
+        if(x==null){
+            System.out.println("ECPoint x null");
+        }
+        ECPoint y =g.multiply(h2).normalize();
+        if(y==null){
+            System.out.println("ECPoint y null");
+        }
+        Pair<ECPoint, ECPoint> ut=new Pair<ECPoint, ECPoint>(x,y);
         return ut;
     }
 

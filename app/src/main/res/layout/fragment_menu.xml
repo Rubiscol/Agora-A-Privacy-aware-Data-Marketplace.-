@@ -12,34 +12,36 @@
         android:id="@+id/Experiment_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
+        android:layout_marginTop="140dp"
         android:text="Experiment"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Consumer_button" />
+        app:layout_constraintTop_toBottomOf="@+id/Broker_button"
+        app:layout_constraintVertical_bias="0.023" />
 
     <Button
         android:id="@+id/Generator_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginEnd="44dp"
         android:text="Generator"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Setup_button" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/Setup_button"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/Setup_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
+        android:layout_marginTop="136dp"
+        android:layout_marginEnd="40dp"
         android:text="Set up"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintEnd_toStartOf="@+id/Generator_button"
+        app:layout_constraintHorizontal_bias="0.936"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,23 +49,21 @@
         android:id="@+id/Consumer_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginEnd="44dp"
         android:text="Consumer"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Broker_button" />
+        app:layout_constraintBaseline_toBaselineOf="@+id/Broker_button"
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <Button
         android:id="@+id/Broker_button"
         android:layout_width="140dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="144dp"
         android:text="Broker"
         android:textColor="@color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Generator_button" />
+        app:layout_constraintTop_toBottomOf="@+id/Setup_button" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

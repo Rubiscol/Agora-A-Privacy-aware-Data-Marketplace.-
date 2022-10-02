@@ -104,6 +104,14 @@ public class MenuFragment extends Fragment {
 
             }
         });
+        view.findViewById(R.id.Experiment_button).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                NavHostFragment.findNavController(MenuFragment.this)
+                        .navigate(R.id.action_MenuFragment_to_ExperimentFragment);
+
+            }
+        });
 
     }
 }

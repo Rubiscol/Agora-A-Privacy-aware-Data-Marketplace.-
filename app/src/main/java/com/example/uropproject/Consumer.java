@@ -57,7 +57,7 @@ public class Consumer {
         Credentials credentials = Credentials.create("4bbe1fe43741f6143dcdd4af42ed6c9ab3e53a8bbb7ecfbb6aeb5c7aa8d7863f");
         new RawTransactionManager(web3j, credentials, 4L);
         String contractAddress =Main.contractAddress;
-        ExperimentAgreegator contract = ExperimentAgreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
+        Agreegator contract = Agreegator.load(contractAddress, web3j, credentials,  DefaultGasProvider.GAS_PRICE, DefaultGasProvider.GAS_LIMIT);
 
         List<BigInteger> x= Arrays.asList(new BigInteger[]{ga.getAffineXCoord().toBigInteger(),ga.getAffineYCoord().toBigInteger()});
         a=getAfrombroker();
@@ -72,7 +72,7 @@ public class Consumer {
 
 
     }
-    public static boolean verify() throws NoSuchAlgorithmException {
+    public static boolean verifyZNP() throws NoSuchAlgorithmException {
 
         ArrayList<ECPoint> ecPoints=Broker.getECPoints();
         ECPoint ga=ecPoints.get(0);
