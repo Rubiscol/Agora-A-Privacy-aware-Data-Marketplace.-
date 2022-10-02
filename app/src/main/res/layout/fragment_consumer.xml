@@ -8,6 +8,17 @@
     android:background="#2196F3"
     tools:context=".ConsumerFragment">
 
+    <Button
+        android:id="@+id/verify_button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:text="Verify a"
+        android:textColor="@color/black"
+        app:layout_constraintBaseline_toBaselineOf="@+id/verify_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/verify_button" />
+
     <TextView
         android:id="@+id/Consumer_title"
         android:layout_width="wrap_content"
@@ -49,7 +60,7 @@
         android:id="@+id/scrollView4"
         android:layout_width="409dp"
         android:layout_height="200dp"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="44dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/t_confirm_button"
@@ -61,7 +72,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/consumer_textView"
+                android:id="@+id/setup__info_textView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
@@ -74,22 +85,26 @@
         android:id="@+id/consumer_back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="88dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="84dp"
         android:text="BACK"
         android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView4" />
+        app:layout_constraintTop_toBottomOf="@+id/scrollView4"
+        app:layout_constraintVertical_bias="0.148" />
 
     <Button
         android:id="@+id/verify_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:text="Verify"
+        android:layout_marginEnd="156dp"
+        android:text="Verify ZKP"
         android:textColor="@color/black"
         app:layout_constraintBaseline_toBaselineOf="@+id/consumer_back_button"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.818"
+        app:layout_constraintStart_toEndOf="@+id/consumer_back_button" />
 
     <EditText
         android:id="@+id/t_textView"

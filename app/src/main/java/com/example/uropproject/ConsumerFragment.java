@@ -1,6 +1,5 @@
 package com.example.uropproject;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -13,15 +12,21 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import org.bouncycastle.math.ec.ECPoint;
 import org.javatuples.Triplet;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.RawTransactionManager;
+import org.web3j.tx.gas.DefaultGasProvider;
 
 import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -43,9 +48,11 @@ public class ConsumerFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private Button verify_button;
+    private Button verify_button2;
     private String message;
-    private static ECPoint g;
-    public static Integer currentlabel;
+    private static ECPoint g=Main.g;
+    private static ECPoint ga;
+    private static BigInteger  a;
     public ConsumerFragment() {
         // Required empty public constructor
     }
@@ -84,11 +91,15 @@ public class ConsumerFragment extends Fragment {
         t_textView=view.findViewById(R.id.t_textView);
         t_confirm_button=view.findViewById(R.id.t_confirm_button);
         refresh_button=view.findViewById(R.id.refresh_button);
-        consumer_textView=view.findViewById(R.id.consumer_textView);
+        consumer_textView=view.findViewById(R.id.setup__info_textView);
         consumer_back_button=view.findViewById(R.id.consumer_back_button);
         verify_button=view.findViewById(R.id.verify_button);
-
+        verify_button2=view.findViewById(R.id.verify_button2);
         return view;
+    }
+
+    public void receiveA(BigInteger a){
+        this.a =a;
     }
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -98,28 +109,33 @@ public class ConsumerFragment extends Fragment {
             @Override
 
             public void onClick(View view) {
-                currentlabel=Integer.valueOf(String.valueOf(t_textView.getText()));
+                Main.currentlabel=Integer.valueOf(String.valueOf(t_textView.getText()));
+            }
 
+        });
+        view.findViewById(R.id.verify_button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                try {
+                    if(Consumer.verifyGA()){
+                        consumer_textView.setText("=====Please wait for the verification of a =====\n"+"The verification passes, ready to decrypt: \n");
+                        String info=Consumer.verifyXt();
+                        consumer_textView.append(info);
+                    }
+                    else{
+                        consumer_textView.setText("The verification of g*a fails\n");
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
 
         });
         view.findViewById(R.id.refresh_button).setOnClickListener(new View.OnClickListener() {
             @Override
-
             public void onClick(View view) {
-                ArrayList<ECPoint>ecPoints=BrokerFragment.getECPoints();
-                ECPoint ga=ecPoints.get(0);
-                ECPoint gafsk1=ecPoints.get(1);
-                ECPoint gafsk2=ecPoints.get(2);
-                ECPoint ut1afsk1=ecPoints.get(3);
-                ECPoint ut2afsk2=ecPoints.get(4);
-                message="Received from broker: "+"\n"
-                        +"g*a= "+ga.getAffineXCoord()+"\n"
-                        +"g*a*fsk(1)= "+gafsk1.getAffineXCoord()+"\n"
-                        +"g*a*fsk(2)= "+gafsk2.getAffineXCoord()+"\n"
-                        +"ut(1)*a*fsk(1)= "+ut1afsk1.getAffineXCoord()+"\n"
-                        +"ut(2)*a*fsk(2)= "+ut2afsk2.getAffineXCoord()+"\n"
-                        +"Ready to verify the above values..."+"\n";
+                message=Consumer.getInfoFromBroker();
                 consumer_textView.setText(message);
             }
 
@@ -129,25 +145,10 @@ public class ConsumerFragment extends Fragment {
 
             public void onClick(View view) {
                 try {
-                    if(verify()){
+                    if( Consumer.verify()){
                         message=message+"--------------"+"\n";
                         message=message+"The ZNP test passes"+"\n";
                         message=message+"--------------"+"\n";
-                        message=message+"The X("+currentlabel+")*g result's information are listed below"+"\n";
-                        ECPoint cipherPoint= testUROP.getCombinedCiphertext(currentlabel);
-                        ECPoint result= cipherPoint.subtract(testUROP.utEcPoint.get(currentlabel).getKey().multiply(testUROP.fsk.getKey()).normalize()).normalize();
-                        result= result.subtract(testUROP.utEcPoint.get(currentlabel).getValue().multiply(testUROP.fsk.getValue()).normalize()).normalize();
-                        message=message+"The x coordinate of the result is \n"+result.getAffineXCoord()+"\n";
-                        message=message+"The y coordinate of the result is \n"+result.getAffineYCoord()+"\n";
-                        message=message+"--------------"+"\n";
-                        message=message+"The X("+currentlabel+") from the broker is \n"+BrokerFragment.getXt(currentlabel)+"\n";
-                        message=message+"--------------"+"\n";
-                        ECPoint gx=g.multiply(BrokerFragment.getXt(currentlabel)).normalize();
-
-                        message=message+"Whether the given X(t) satisfy X(t)*g==result: \n";
-                        message=message+"The x coordinate of the X(t)*g is \n"+gx.getAffineXCoord()+"\n";
-                        message=message+"The y coordinate of the X(t)*g is \n"+gx.getAffineYCoord()+"\n";
-                        message=message+gx.equals(result)+"\n";
                         consumer_textView.setText(message);
                     }
                     else{
@@ -174,50 +175,5 @@ public class ConsumerFragment extends Fragment {
 
 
     }
-    public boolean verify() throws NoSuchAlgorithmException {
-        g=testUROP.g;
-        ArrayList<ECPoint>ecPoints=BrokerFragment.getECPoints();
-        ECPoint ga=ecPoints.get(0);
-        ECPoint gafsk1=ecPoints.get(1);
-        ECPoint gafsk2=ecPoints.get(2);
-        ECPoint ut1afsk1=ecPoints.get(3);
-        ECPoint ut2afsk2=ecPoints.get(4);
-        Triplet<ECPoint,ECPoint,BigInteger> H0=BrokerFragment.proverTest().get(0);
-        Triplet<ECPoint,ECPoint,BigInteger> H1=BrokerFragment.proverTest().get(1);
-        Triplet<ECPoint,ECPoint,BigInteger> H2=BrokerFragment.proverTest().get(2);
-        Triplet<ECPoint,ECPoint,BigInteger> H3=BrokerFragment.proverTest().get(3);
-        Boolean boolean0=verifierTest(g,ga, g.multiply(testUROP.fsk.getKey()),gafsk1,H0);
-        Boolean boolean1=verifierTest(g,ga,g.multiply(testUROP.fsk.getValue()),gafsk2,H1);
-        Boolean boolean2=verifierTest(g,testUROP.utEcPoint.get(currentlabel).getKey(),ga.multiply(testUROP.fsk.getKey()),ut1afsk1,H2);
-        Boolean boolean3=verifierTest(g,testUROP.utEcPoint.get(currentlabel).getValue(),ga.multiply(testUROP.fsk.getValue()),ut2afsk2,H3);
 
-        return boolean0&&boolean1&&boolean2&&boolean3;
-    }
-    public static boolean verifierTest( ECPoint g, ECPoint h, ECPoint yg, ECPoint yh, Triplet<ECPoint,ECPoint,BigInteger> H) throws NoSuchAlgorithmException {
-
-        BigInteger z=H.getValue2();
-        ECPoint ug=H.getValue0();
-        ECPoint uh=H.getValue1();
-        ECPoint hashPoint=g.add(h);
-        hashPoint=hashPoint.add(ug).normalize();
-        hashPoint=hashPoint.add(uh).normalize();
-        hashPoint=hashPoint.add(yg).normalize();
-        hashPoint=hashPoint.add(yh).normalize();
-        BigInteger c=SHA256Calculator.doSHA256(hashPoint.hashCode());
-        ECPoint zg=g.multiply(z).normalize();
-        ECPoint cgy=yg.multiply(c).normalize();
-        ECPoint ugcgy=cgy.add(ug).normalize();
-        ECPoint zh=h.multiply(z).normalize();
-        ECPoint chy=yh.multiply(c).normalize();
-
-        ECPoint uhchy=chy.add(uh).normalize();
-        System.out.println(zg.equals(ugcgy));
-        if(zg.equals(ugcgy)&& zh.equals(uhchy)) {
-            return true;
-        }
-        else {
-            return false;
-        }
-
-    }
 }

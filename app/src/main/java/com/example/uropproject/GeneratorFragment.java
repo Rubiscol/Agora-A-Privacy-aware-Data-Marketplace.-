@@ -1,8 +1,10 @@
 package com.example.uropproject;
 
+import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
@@ -11,10 +13,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import org.bouncycastle.jce.ECNamedCurveTable;
+import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
+import org.bouncycastle.math.ec.ECCurve;
 import org.bouncycastle.math.ec.ECPoint;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.methods.response.Web3ClientVersion;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.RawTransactionManager;
+import org.web3j.tx.gas.DefaultGasProvider;
 
+import java.io.IOException;
+import java.math.BigInteger;
 import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -33,6 +51,7 @@ public class GeneratorFragment extends Fragment {
     private String mParam2;
     private TextView generator_title_textView;
     private TextView  generator_content_textView;
+    public static ArrayList<BigInteger> plaintexts=new ArrayList<>();
     public GeneratorFragment() {
         // Required empty public constructor
     }
@@ -66,38 +85,34 @@ public class GeneratorFragment extends Fragment {
 
 
     private void updatetitle(){
-        generator_title_textView.setText("Current round t is: "+testUROP.label);
+        generator_title_textView.setText("Current round t is: "+Main.label);
     }
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =inflater.inflate(R.layout.fragment_generator, container, false);
         generator_title_textView=view.findViewById(R.id.generator_title_textView);
-        generator_title_textView.setText("Current round t is: "+testUROP.label);
+        generator_title_textView.setText("Current round t is: "+Main.label);
         generator_content_textView =view.findViewById(R.id.generator_content_textView);
         return view;
     }
+
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         view.findViewById(R.id.generator_generate_button).setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.N)
             public void onClick(View view) {
-                testUROP.updateLabel();
-                try {
-                    testUROP.testEncrypt(testUROP.label);
-                    String message="";
-                    for (int i=testUROP.label;i>0;i--){
-                        ECPoint cipherPoint=testUROP.getCombinedCiphertext(i);
-                        message=message+"Here is the C("+i+")'s information:\n";
-                        message=message+"The x coordinate of C("+i+") is: "+cipherPoint.getAffineXCoord()+"\n";
-                        message=message+"The y coordinate of C("+i+") is: "+cipherPoint.getAffineYCoord()+"\n"+"\n";
-                    }
 
-                    generator_content_textView.setText(message);
+                try {
+                    String message=Generator.uploadciphertext();
+                    generator_content_textView.append(message);
+                    Main.updateDevicecounter();
                     updatetitle();
 
                 } catch (NoSuchAlgorithmException e) {
                     e.printStackTrace();
-                } catch (InvalidAlgorithmParameterException e) {
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

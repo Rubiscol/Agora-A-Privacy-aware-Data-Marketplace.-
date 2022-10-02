@@ -1,5 +1,6 @@
 package com.example.uropproject;
 
+import android.content.Context;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -10,11 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
-import org.bouncycastle.math.ec.ECPoint;
-
-import java.math.BigInteger;
-import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 
 /**
@@ -33,7 +31,10 @@ public class SetupFragment extends Fragment {
     private String mParam1;
     private String mParam2;
     private EditText generator_number;
+    private TextView setup_info_textView;
     private EditText parameter;
+
+
     public SetupFragment() {
         // Required empty public constructor
     }
@@ -72,6 +73,7 @@ public class SetupFragment extends Fragment {
         View view=inflater.inflate(R.layout.fragment_setup, container, false);
         generator_number=view.findViewById(R.id.generator_number);
         parameter=view.findViewById(R.id.parameter);
+        setup_info_textView=view.findViewById(R.id.setup_info_textView);
         return view;
     }
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
@@ -79,23 +81,27 @@ public class SetupFragment extends Fragment {
         view.findViewById(R.id.generator_number_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Integer input_number= Integer.parseInt(String.valueOf(generator_number.getText()));
-                testUROP.n=input_number;
+                Main.n=input_number;
             }
         });
         view.findViewById(R.id.parameter_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 Integer input_number= Integer.parseInt(String.valueOf(parameter.getText()));
-                testUROP.securityParameter=input_number;
+                Main.securityParameter=input_number;
             }
         });
         view.findViewById(R.id.setup_button).setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
                 try {
-                    testUROP.Setup();
-                    testUROP.testDKeyGen();
-                } catch (NoSuchAlgorithmException e) {
-                    e.printStackTrace();
-                } catch (InvalidAlgorithmParameterException e) {
+                    System.out.println("setText 0");
+                    System.out.println("setText 1");
+                    SetupActivity.run();
+                    System.out.println("setText 2");
+                    setup_info_textView.append("Finish setup");
+                    System.out.println("setText 3");
+                    SetupActivity.testDKeyGen();
+
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }

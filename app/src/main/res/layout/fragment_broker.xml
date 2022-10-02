@@ -8,10 +8,35 @@
     android:background="#2196F3"
     tools:context=".BrokerFragment">
 
+    <Button
+        android:id="@+id/broker_sendga_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Upload a"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/broker_generate_button" />
+
+    <Button
+        android:id="@+id/broker_getcipher_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="GET C (T) "
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
+        app:layout_constraintVertical_bias="0.055" />
+
     <TextView
         android:id="@+id/Broker_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="44dp"
         android:text="Welcome to Broker Page"
         android:textColor="@color/white"
         android:textSize="24sp"
@@ -24,23 +49,21 @@
         android:id="@+id/broker_generate_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="12dp"
         android:text="Generate a"
         android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/horizontalScrollView2"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3" />
 
     <ScrollView
         android:id="@+id/scrollView3"
         android:layout_width="409dp"
         android:layout_height="200dp"
-        android:layout_marginTop="56dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView2">
+        app:layout_constraintTop_toBottomOf="@+id/broker_sendga_button">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,8 +99,8 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/scrollView3"
-        app:layout_constraintVertical_bias="0.502" />
+        app:layout_constraintTop_toBottomOf="@+id/broker_getcipher_button"
+        app:layout_constraintVertical_bias="0.221" />
 
     <HorizontalScrollView
         android:id="@+id/horizontalScrollView3"
@@ -109,7 +132,9 @@
         android:layout_width="240dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="32dp"
+        app:layout_constraintEnd_toStartOf="@+id/broker_generate_button"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/horizontalScrollView3">
 

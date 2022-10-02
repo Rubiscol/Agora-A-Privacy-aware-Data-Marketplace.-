@@ -3,7 +3,8 @@ import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
 import org.bouncycastle.math.ec.ECPoint;
 import org.bouncycastle.math.ec.ECCurve;
-import javafx.util.Pair;
+import org.javatuples.Pair;
+
 
 public class Encryption {
 	private BigInteger originalmessage;
@@ -24,7 +25,7 @@ public class Encryption {
 	}
 	public Pair<ECPoint, ECPoint> getut() throws NoSuchAlgorithmException {
 
-//		BigInteger h1=testUROP.nextRandomBigInteger(testUROP.securityParameter);
+//		BigInteger h1=Main.nextRandomBigInteger(Main.securityParameter);
 		BigInteger h1=SHA256Calculator.doSHA256(label);
 		BigInteger h2=SHA256Calculator.doSHA256(h1);
 		ut=new Pair<ECPoint, ECPoint>(G.multiply(h1).normalize(), G.multiply(h2).normalize());
@@ -35,8 +36,8 @@ public class Encryption {
 
 
 		ut=getut();
-		ECPoint p1=ut.getKey().multiply(encryptionkey.getKey());
-		ECPoint p2=ut.getValue().multiply(encryptionkey.getValue());
+		ECPoint p1=ut.getValue0().multiply(encryptionkey.getValue0());
+		ECPoint p2=ut.getValue1().multiply(encryptionkey.getValue1());
 		ECPoint p3=G.multiply(originalmessage);
 		ECPoint p4=p2.add(p3);
 		ECPoint finalEcPoint=p1.add(p4);

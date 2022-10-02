@@ -2,11 +2,13 @@ package com.example.uropproject;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
+
+import org.javatuples.Pair;
 import org.javatuples.Triplet;
 import org.bouncycastle.math.ec.ECPoint;
 import org.bouncycastle.math.ec.ECCurve;
 
-import javafx.util.Pair;
+//import javafx.util.Pair;
 
 public class DKeyGen {
 	private ArrayList<Pair<BigInteger, BigInteger>> msk;
@@ -23,8 +25,8 @@ public class DKeyGen {
 		ws_1=BigInteger.ZERO;
 		ws_2=BigInteger.ZERO;
 		for(int i=0;i<w.size();i++) {
-			ws_1=(ws_1.add(w.get(i).multiply(msk.get(i).getKey())));
-			ws_2=(ws_2.add(w.get(i).multiply(msk.get(i).getValue())));
+			ws_1=(ws_1.add(w.get(i).multiply(msk.get(i).getValue0())));
+			ws_2=(ws_2.add(w.get(i).multiply(msk.get(i).getValue1())));
 		}
 		System.out.println("fsk is");
 		System.out.println(ws_1);
@@ -33,7 +35,8 @@ public class DKeyGen {
 
 	}
 	public Triplet<ArrayList<BigInteger>,ECPoint,ECPoint> getfpk(ECPoint G,ECCurve curve) {
-		getfsk();
+		//
+		Main.fsk=getfsk();
 		fpk=new Triplet<ArrayList<BigInteger>, ECPoint, ECPoint>(w,G.multiply(ws_1).normalize(),G.multiply(ws_2).normalize());
 		return fpk;
 
